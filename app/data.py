@@ -69,13 +69,14 @@ class Database:
     def dataframe(self) -> DataFrame:
         """
         Retrieve all monsters and their attributes from the collection using the `find()` method, which performs a
-        query to retrieve the monsters (documents) from the collection. The results are converted into a list to
-        gather all the records and then the list is transformed into a pandas DataFrame.
+        query to retrieve the monsters (documents) from the collection. The `_id` field is excluded from the results
+        using the projection `{"_id": False}`. The results are converted into a list to gather all the records and then
+        the list is transformed into a pandas DataFrame.
 
         :return:
             pandas.DataFrame: A DataFrame containing all the monsters and their respective attributes.
         """
-        data = list(self.collection.find())
+        data = list(self.collection.find({}, {"_id": 0}))
         return DataFrame(data)
 
     def html_table(self) -> str:
