@@ -54,7 +54,8 @@ class Database:
         :return:
             bool: True if the deletion was acknowledged, False otherwise.
         """
-        return self.collection.delete_many({})
+        result = self.collection.delete_many({})
+        return result.acknowledged
 
     def count(self) -> int:
         """
